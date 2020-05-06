@@ -1,0 +1,140 @@
+<%@page import="Entidad.Categorias"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<html lang="en">
+<title>Home</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+<link rel="stylesheet" type="text/css" href="Stylesheet.css">
+</head>
+<script src="js/jquery-1.11.0.min.js"></script> <!--Primero jquery-->
+<script src="js/bootstrap.min.js"></script> <!--Segundo bootstrap-->
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="css/addons/datatables.min.css" rel="stylesheet">
+ <script type="text/javascript">
+    $(document).ready( function () {
+        $('#table_id').DataTable();
+    } );
+    </script>
+<style>
+body {
+ background-image: url("mecanica.jpg");
+}
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
+.w3-sidebar {
+  z-index: 3;
+  width: 250px;
+  top: 43px;
+  bottom: 0;
+  height: inherit;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #000000;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color:#1a53ff;
+}
+
+
+
+</style>
+
+<body>
+<script >
+$(document).ready(function () {
+	  $('#dtBasicExample').DataTable();
+	  $('.dataTables_length').addClass('bs-select');
+	});</script>
+	
+	<jsp:include page="Header.jsp"/>
+	<jsp:include page="MenuLateral.jsp"/>
+	<jsp:include page="Footer.jsp"/>
+		<%
+		List<Categorias> listaA = new ArrayList<Categorias>();
+		if (request.getAttribute("listaCat") != null) {
+			listaA = (List<Categorias>) request.getAttribute("listaCat");
+		}
+	%>
+<%
+int cant=0;
+			for (Categorias a : listaA) {
+		cant++;
+
+		
+			}
+		%>
+
+	
+	<!--  -->
+			<div style="position:absolute;right: 0; top: 40px; left: 250px; bottom: 0; right: 0;" class="container">
+		<h2>Lista de Categorias</h2>
+	
+	<div id="contenedor">
+<table class="table table-striped table-dark" id="dtBasicExample">
+    <thead>
+	    <thead>
+    
+  <tr>
+			<td><b>ID Categorias bb</b></td>
+			<td><b>NOMBRE</b></td>
+			<td><b>ESTADO</b></td>
+			  </tr>
+     </thead>
+    <tbody>
+		<%
+			for (Categorias a : listaA) {
+				
+		%>
+
+		<tr>
+			<td><%=a.getId()%></td>
+			<td><%=a.getNombre()%></td>
+		
+			<%
+			String resu =a.getEstado();
+			int numEntero = Integer.parseInt(a.getEstado());
+			%>
+			
+			<% 
+			if(numEntero==1){%> <td>Activo</td> <%}
+			
+			else{%><td>Inactivo</td><%}%>
+			
+		
+			
+		
+			
+			
+
+		</tr>
+
+		<%
+			}
+		
+		%>
+
+    </tbody>
+</table>
+<input type="submit" name="btnEliminar2" value="atrasar" onClick="location.href='servletUsuario?btnEliminar2=<%=cant%>&idUsuario=<%=cant%>'"> 
+ <input type="submit" name="adelantar" value="adelantar" onClick="location.href='servletUsuario?btnEliminar2=<%=cant%>&idUsuario=<%=cant%>'"> 
+</div>
+			
+	
+</body>
+</html>
